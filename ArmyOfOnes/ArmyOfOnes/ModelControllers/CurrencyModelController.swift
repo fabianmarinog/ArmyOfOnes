@@ -17,10 +17,16 @@ protocol CurrencyControllerProtocol {
 struct MockCurrencyController : CurrencyControllerProtocol{
     func fetchRates(countries:[Country], callback:CurrenciesCallback)->Void{
         var currencies = [Currency]()
+        var currenciesSufixes = [String]()
         for i in 0..<countries.count{
             let currency = Currency(currencyCountry: countries[i], currencyValue: Double(10.56))
             currencies.append(currency)
+            currenciesSufixes.append(currency.currencyCountry.rawValue)
         }
         callback(currencies,nil)
+        
+        
+        let dataManager = DataManager()
+        dataManager.fetchJsonData(currenciesSufixes)
     }
 }

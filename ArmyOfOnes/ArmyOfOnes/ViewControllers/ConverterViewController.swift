@@ -15,10 +15,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let currencyController = MockCurrencyController()
-        /*var countries = [String]()
-        for country in Country.allCountries{
-            countries.append(country.rawValue)
-        }*/
         currencyController.fetchRates(Country.allCountries) {(currencies, err) -> Void in
             print("currencies \(currencies)")
         }

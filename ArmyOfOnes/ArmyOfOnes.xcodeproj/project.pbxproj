@@ -14,6 +14,7 @@
 		151301DB1DCCE0AD00F5A5B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 151301D81DCCE0AD00F5A5B7 /* Main.storyboard */; };
 		151301E51DCCE45700F5A5B7 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301E41DCCE45700F5A5B7 /* Currency.swift */; };
 		151301E91DCCE50F00F5A5B7 /* CurrencyModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301E81DCCE50F00F5A5B7 /* CurrencyModelController.swift */; };
+		151301EE1DCD362300F5A5B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301ED1DCD362300F5A5B7 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		151301D91DCCE0AD00F5A5B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Storyboards/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		151301E41DCCE45700F5A5B7 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Models/Currency.swift; sourceTree = "<group>"; };
 		151301E81DCCE50F00F5A5B7 /* CurrencyModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyModelController.swift; path = ModelControllers/CurrencyModelController.swift; sourceTree = "<group>"; };
+		151301ED1DCD362300F5A5B7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataSources/DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		151301B71DCCCED600F5A5B7 /* ArmyOfOnes */ = {
 			isa = PBXGroup;
 			children = (
+				151301EA1DCD35E100F5A5B7 /* DataSources */,
 				151301E11DCCE0EB00F5A5B7 /* Views */,
 				151301E01DCCE0E200F5A5B7 /* ModelControllers */,
 				151301DF1DCCE0DE00F5A5B7 /* Models */,
@@ -116,6 +119,14 @@
 			children = (
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		151301EA1DCD35E100F5A5B7 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				151301ED1DCD362300F5A5B7 /* DataManager.swift */,
+			);
+			name = DataSources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				151301E51DCCE45700F5A5B7 /* Currency.swift in Sources */,
+				151301EE1DCD362300F5A5B7 /* DataManager.swift in Sources */,
 				151301E91DCCE50F00F5A5B7 /* CurrencyModelController.swift in Sources */,
 				151301D11DCCE01D00F5A5B7 /* ConverterViewController.swift in Sources */,
 				151301B91DCCCED600F5A5B7 /* AppDelegate.swift in Sources */,
