@@ -14,7 +14,7 @@ protocol CurrencyControllerProtocol {
     func fetchRates(countries:[Country], callback:CurrenciesCallback)-> Void
 }
 
-struct MockCurrencyController : CurrencyControllerProtocol{
+struct CurrencyController : CurrencyControllerProtocol{
     func fetchRates(countries:[Country], callback:CurrenciesCallback)->Void{
         
         var currenciesSufixes = [String]()

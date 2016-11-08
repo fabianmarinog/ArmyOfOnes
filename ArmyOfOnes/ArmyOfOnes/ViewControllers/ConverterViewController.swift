@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let currencyController = MockCurrencyController()
+        let currencyController = CurrencyController()
         currencyController.fetchRates(Country.allCountries) {(currencies, err) -> Void in
             print("currencies \(currencies)")
         }
