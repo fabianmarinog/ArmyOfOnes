@@ -8,26 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		151301B91DCCCED600F5A5B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301B81DCCCED600F5A5B7 /* AppDelegate.swift */; };
-		151301D11DCCE01D00F5A5B7 /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301D01DCCE01D00F5A5B7 /* ConverterViewController.swift */; };
 		151301D31DCCE08100F5A5B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 151301D21DCCE08100F5A5B7 /* Assets.xcassets */; };
 		151301DA1DCCE0AD00F5A5B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 151301D61DCCE0AD00F5A5B7 /* LaunchScreen.storyboard */; };
 		151301DB1DCCE0AD00F5A5B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 151301D81DCCE0AD00F5A5B7 /* Main.storyboard */; };
 		151301E51DCCE45700F5A5B7 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301E41DCCE45700F5A5B7 /* Currency.swift */; };
 		151301E91DCCE50F00F5A5B7 /* CurrencyModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301E81DCCE50F00F5A5B7 /* CurrencyModelController.swift */; };
 		151301EE1DCD362300F5A5B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301ED1DCD362300F5A5B7 /* DataManager.swift */; };
+		1576AA741DD2700F00153F88 /* CurrenciesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1576AA731DD2700F00153F88 /* CurrenciesListViewController.swift */; };
+		CBC31A8E00015C161E1AD208 /* Pods_ArmyOfOnes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01112B6A4CA98C5AA2F7693A /* Pods_ArmyOfOnes.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01112B6A4CA98C5AA2F7693A /* Pods_ArmyOfOnes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArmyOfOnes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		151301B51DCCCED600F5A5B7 /* ArmyOfOnes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArmyOfOnes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		151301B81DCCCED600F5A5B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		151301C41DCCCED600F5A5B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		151301D01DCCE01D00F5A5B7 /* ConverterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConverterViewController.swift; path = ViewControllers/ConverterViewController.swift; sourceTree = "<group>"; };
 		151301D21DCCE08100F5A5B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		151301D71DCCE0AD00F5A5B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Storyboards/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		151301D91DCCE0AD00F5A5B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Storyboards/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		151301E41DCCE45700F5A5B7 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Models/Currency.swift; sourceTree = "<group>"; };
 		151301E81DCCE50F00F5A5B7 /* CurrencyModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyModelController.swift; path = ModelControllers/CurrencyModelController.swift; sourceTree = "<group>"; };
 		151301ED1DCD362300F5A5B7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataSources/DataManager.swift; sourceTree = "<group>"; };
+		1576AA731DD2700F00153F88 /* CurrenciesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesListViewController.swift; path = ViewControllers/CurrenciesListViewController.swift; sourceTree = "<group>"; };
+		5811D6E0728FCF65CDCAC9B6 /* Pods-ArmyOfOnes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmyOfOnes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArmyOfOnes/Pods-ArmyOfOnes.debug.xcconfig"; sourceTree = "<group>"; };
+		905C0D21C2FDC1697E608857 /* Pods-ArmyOfOnes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmyOfOnes.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArmyOfOnes/Pods-ArmyOfOnes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +39,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBC31A8E00015C161E1AD208 /* Pods_ArmyOfOnes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0032ADAF1B57E6B3FC55B57A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01112B6A4CA98C5AA2F7693A /* Pods_ArmyOfOnes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		151301AC1DCCCED600F5A5B7 = {
 			isa = PBXGroup;
 			children = (
 				151301B71DCCCED600F5A5B7 /* ArmyOfOnes */,
 				151301B61DCCCED600F5A5B7 /* Products */,
+				473578DEF6AA01554ADDF734 /* Pods */,
+				0032ADAF1B57E6B3FC55B57A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,7 +91,7 @@
 		151301DC1DCCE0C100F5A5B7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				151301D01DCCE01D00F5A5B7 /* ConverterViewController.swift */,
+				1576AA731DD2700F00153F88 /* CurrenciesListViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -129,6 +144,15 @@
 			name = DataSources;
 			sourceTree = "<group>";
 		};
+		473578DEF6AA01554ADDF734 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5811D6E0728FCF65CDCAC9B6 /* Pods-ArmyOfOnes.debug.xcconfig */,
+				905C0D21C2FDC1697E608857 /* Pods-ArmyOfOnes.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,9 +160,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 151301C71DCCCED600F5A5B7 /* Build configuration list for PBXNativeTarget "ArmyOfOnes" */;
 			buildPhases = (
+				A386DC5B7EA8392C46D493FE /* [CP] Check Pods Manifest.lock */,
 				151301B11DCCCED600F5A5B7 /* Sources */,
 				151301B21DCCCED600F5A5B7 /* Frameworks */,
 				151301B31DCCCED600F5A5B7 /* Resources */,
+				FB5C63E8033E4077DF2453A6 /* [CP] Embed Pods Frameworks */,
+				A40719833EEAD9D72761AFD4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,6 +222,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A386DC5B7EA8392C46D493FE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A40719833EEAD9D72761AFD4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArmyOfOnes/Pods-ArmyOfOnes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB5C63E8033E4077DF2453A6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArmyOfOnes/Pods-ArmyOfOnes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		151301B11DCCCED600F5A5B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -203,7 +278,7 @@
 				151301E51DCCE45700F5A5B7 /* Currency.swift in Sources */,
 				151301EE1DCD362300F5A5B7 /* DataManager.swift in Sources */,
 				151301E91DCCE50F00F5A5B7 /* CurrencyModelController.swift in Sources */,
-				151301D11DCCE01D00F5A5B7 /* ConverterViewController.swift in Sources */,
+				1576AA741DD2700F00153F88 /* CurrenciesListViewController.swift in Sources */,
 				151301B91DCCCED600F5A5B7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +388,7 @@
 		};
 		151301C81DCCCED600F5A5B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5811D6E0728FCF65CDCAC9B6 /* Pods-ArmyOfOnes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ArmyOfOnes/Info.plist;
@@ -324,6 +400,7 @@
 		};
 		151301C91DCCCED600F5A5B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 905C0D21C2FDC1697E608857 /* Pods-ArmyOfOnes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ArmyOfOnes/Info.plist;
