@@ -13,9 +13,13 @@ class CurrenciesListViewController: UITableViewController {
     let cellIdentifier = "CellIdentifier"
     var currencyRatesList = [String]()
     let listTitle = "Army of Ones"
+    var currencyFormatter = NSNumberFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //sets format number style to currency
+        currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         
         self.title = listTitle
         
@@ -29,7 +33,12 @@ class CurrenciesListViewController: UITableViewController {
                 for rate in ratesList {
                     let countryValue = rate.currencyCountry.rawValue
                     let rateValue = rate.currencyValue
-                    self.currencyRatesList.append("\(countryValue) \(rateValue)")
+                    self.currencyFormatter.currencyCode = countryValue
+                    
+                    if let currencyFormatedValue = self.currencyFormatter.stringFromNumber(rateValue) {
+                        self.currencyRatesList.append("\(countryValue) \(currencyFormatedValue)")
+                    }
+                    self.tableView.reloadData()
                 }
             }
         }
