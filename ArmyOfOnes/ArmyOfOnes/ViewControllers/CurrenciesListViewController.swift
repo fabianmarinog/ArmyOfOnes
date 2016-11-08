@@ -14,6 +14,8 @@ class CurrenciesListViewController: UITableViewController {
     var currencyRatesList = [String]()
     let listTitle = "Army of Ones"
     var currencyFormatter = NSNumberFormatter()
+    var rates = [Currency]()
+    var dollarQuantity = 1.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,29 +23,33 @@ class CurrenciesListViewController: UITableViewController {
         //sets format number style to currency
         currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         
-        self.title = listTitle
+        title = listTitle
         
-        self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         let currencyController = CurrencyController()
-        currencyController.fetchRates(Country.allCountries) {(rates, err) -> Void in
-            print("rate \(rates)")
+        currencyController.fetchRates(Country.allCountries) {(fetchedRates, err) -> Void in
             
-            if let ratesList = rates {
-                for rate in ratesList {
-                    let countryValue = rate.currencyCountry.rawValue
-                    let rateValue = rate.currencyValue
-                    self.currencyFormatter.currencyCode = countryValue
-                    
-                    if let currencyFormatedValue = self.currencyFormatter.stringFromNumber(rateValue) {
-                        self.currencyRatesList.append("\(countryValue) \(currencyFormatedValue)")
-                    }
-                    self.tableView.reloadData()
-                }
+            if let ratesList = fetchedRates {
+                self.rates = ratesList
+                self.reloadRates()
             }
         }
     }
     
+    func reloadRates()->Void {
+        for rate in rates {
+            let countryValue = rate.currencyCountry.rawValue
+            let rateValue = rate.currencyValue * dollarQuantity
+            currencyFormatter.currencyCode = countryValue
+            if let currencyFormatedValue = currencyFormatter.stringFromNumber(rateValue) {
+                currencyRatesList.append("\(countryValue) \(currencyFormatedValue)")
+            }
+            tableView.reloadData()
+        }
+    }
+    
+    //MARK: TableView methods
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)! as UITableViewCell
         
