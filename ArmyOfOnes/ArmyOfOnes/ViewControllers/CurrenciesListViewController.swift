@@ -9,20 +9,32 @@
 import UIKit
 import SnapKit
 
+enum LayoutConstraints: CGFloat {
+    case inputOffset = 24, topInset = 43, tableTopInset = 50
+}
+
 class CurrenciesListViewController: UITableViewController {
     
     var didSetupConstraints = false
+    var dollarQuantity = 1.0
     
-    let quantityInput = UITextField()
+    let quantityInput: UITextField = {
+        
+        let textField = UITextField()
+        textField.text = String(1.0)
+        textField.placeholder = "Type a valid dollar quantity"
+        textField.layer.cornerRadius = 4.0
+        textField.layer.masksToBounds = true
+        textField.layer.borderColor = UIColor.lightGrayColor().CGColor
+        textField.layer.borderWidth = 1.0
+        return textField
+    }()
+    
     let cellIdentifier = "CellIdentifier"
     let listTitle = "Army of Ones"
     
     var currencyRatesList = [String]()
     var currencyFormatter = NSNumberFormatter()
-    var dollarQuantity = 1.0
-    
-    let inputPlaceholder = "Type a valid dollar quantity"
-    let topInset = CGFloat(43)
     
     var rates = [Currency]()
     
@@ -30,25 +42,24 @@ class CurrenciesListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
+        tableView.contentInset = UIEdgeInsetsMake(LayoutConstraints.tableTopInset.rawValue, 0, 0, 0);
         tableView.scrollEnabled = false
+        tableView.allowsSelection = false
         
-        quantityInput.backgroundColor = UIColor.lightGrayColor()
-        quantityInput.textColor = UIColor.whiteColor()
-        quantityInput.text = String(dollarQuantity)
-        quantityInput.placeholder = inputPlaceholder
+        title = listTitle
+        tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        setQuantityInputLayout()
+        setupRates()
+        
+        view.setNeedsUpdateConstraints()
+    }
+    
+    func setQuantityInputLayout()->Void {
         navigationController?.view.insertSubview(quantityInput, belowSubview: navigationController!.navigationBar)
         
         //sets format number style to currency
         currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-        
-        title = listTitle
-        
-        tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
-        setupRates()
-        
-        view.setNeedsUpdateConstraints()
     }
     
     func setupRates()->Void {
@@ -65,6 +76,7 @@ class CurrenciesListViewController: UITableViewController {
     }
     
     func reloadRates()->Void {
+        currencyRatesList = [String]()
         for rate in rates {
             let countryValue = rate.currencyCountry.rawValue
             let rateValue = rate.currencyValue * dollarQuantity
@@ -72,7 +84,9 @@ class CurrenciesListViewController: UITableViewController {
             if let currencyFormatedValue = currencyFormatter.stringFromNumber(rateValue) {
                 currencyRatesList.append("\(countryValue) \(currencyFormatedValue)")
             }
-            tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue()){
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -81,11 +95,16 @@ class CurrenciesListViewController: UITableViewController {
     override func updateViewConstraints() {
         
         if (!didSetupConstraints) {
+            let superview = view
+            let inputOffset = LayoutConstraints.inputOffset.rawValue
+            let topInset = LayoutConstraints.topInset.rawValue
+            let inputTopPosition = topInset + inputOffset
             
             quantityInput.snp_makeConstraints { make in
                 make.height.equalTo(topInset)
-                make.width.equalTo(view)
-                make.top.equalTo(topInset + 22)
+                make.width.equalTo(superview).multipliedBy(0.95)
+                make.top.equalTo(superview).offset(inputTopPosition)
+                make.centerX.equalTo(superview)
             }
            
             didSetupConstraints = true
