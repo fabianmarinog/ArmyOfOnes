@@ -17,11 +17,12 @@ class CurrenciesListViewController: UITableViewController {
     let cellIdentifier = "CellIdentifier"
     let listTitle = "Army of Ones"
     
-    var currencyRatesList = [""]
+    var currencyRatesList = [String]()
     var currencyFormatter = NSNumberFormatter()
     var dollarQuantity = 1.0
     
     let inputPlaceholder = "Type a valid dollar quantity"
+    let topInset = CGFloat(43)
     
     var rates = [Currency]()
     
@@ -29,11 +30,14 @@ class CurrenciesListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
+        tableView.scrollEnabled = false
+        
         quantityInput.backgroundColor = UIColor.lightGrayColor()
         quantityInput.textColor = UIColor.whiteColor()
         quantityInput.text = String(dollarQuantity)
         quantityInput.placeholder = inputPlaceholder
-        view.addSubview(quantityInput)
+        navigationController?.view.insertSubview(quantityInput, belowSubview: navigationController!.navigationBar)
         
         //sets format number style to currency
         currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
@@ -79,9 +83,9 @@ class CurrenciesListViewController: UITableViewController {
         if (!didSetupConstraints) {
             
             quantityInput.snp_makeConstraints { make in
-                make.height.equalTo(43)
+                make.height.equalTo(topInset)
                 make.width.equalTo(view)
-                make.top.equalTo(view)
+                make.top.equalTo(topInset + 22)
             }
            
             didSetupConstraints = true
