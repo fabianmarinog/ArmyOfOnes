@@ -10,15 +10,30 @@ import UIKit
 import SnapKit
 
 class CurrenciesListViewController: UITableViewController {
+    
+    var didSetupConstraints = false
+    
+    let quantityInput = UITextField()
     let cellIdentifier = "CellIdentifier"
-    var currencyRatesList = [String]()
     let listTitle = "Army of Ones"
+    
+    var currencyRatesList = [""]
     var currencyFormatter = NSNumberFormatter()
-    var rates = [Currency]()
     var dollarQuantity = 1.0
     
+    let inputPlaceholder = "Type a valid dollar quantity"
+    
+    var rates = [Currency]()
+    
+    //Mark: View methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        quantityInput.backgroundColor = UIColor.lightGrayColor()
+        quantityInput.textColor = UIColor.whiteColor()
+        quantityInput.text = String(dollarQuantity)
+        quantityInput.placeholder = inputPlaceholder
+        view.addSubview(quantityInput)
         
         //sets format number style to currency
         currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
@@ -26,6 +41,13 @@ class CurrenciesListViewController: UITableViewController {
         title = listTitle
         
         tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        setupRates()
+        
+        view.setNeedsUpdateConstraints()
+    }
+    
+    func setupRates()->Void {
         
         let currencyController = CurrencyController()
         currencyController.fetchRates(Country.allCountries) {(fetchedRates, err) -> Void in
@@ -35,6 +57,7 @@ class CurrenciesListViewController: UITableViewController {
                 self.reloadRates()
             }
         }
+
     }
     
     func reloadRates()->Void {
@@ -49,6 +72,24 @@ class CurrenciesListViewController: UITableViewController {
         }
     }
     
+    //MARK: Snapkit methods
+    
+    override func updateViewConstraints() {
+        
+        if (!didSetupConstraints) {
+            
+            quantityInput.snp_makeConstraints { make in
+                make.height.equalTo(43)
+                make.width.equalTo(view)
+                make.top.equalTo(view)
+            }
+           
+            didSetupConstraints = true
+        }
+        
+        super.updateViewConstraints()
+    }
+    
     //MARK: TableView methods
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)! as UITableViewCell
@@ -60,10 +101,5 @@ class CurrenciesListViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currencyRatesList.count
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
