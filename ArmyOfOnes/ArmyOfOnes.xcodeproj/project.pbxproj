@@ -14,6 +14,10 @@
 		151301E51DCCE45700F5A5B7 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301E41DCCE45700F5A5B7 /* Currency.swift */; };
 		151301E91DCCE50F00F5A5B7 /* CurrencyModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301E81DCCE50F00F5A5B7 /* CurrencyModelController.swift */; };
 		151301EE1DCD362300F5A5B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151301ED1DCD362300F5A5B7 /* DataManager.swift */; };
+		152984A11DD3C5CE00146C44 /* GBP.png in Resources */ = {isa = PBXBuildFile; fileRef = 152984A01DD3C5CE00146C44 /* GBP.png */; };
+		152984A31DD3CE2700146C44 /* JPY.png in Resources */ = {isa = PBXBuildFile; fileRef = 152984A21DD3CE2600146C44 /* JPY.png */; };
+		152984A61DD3D08D00146C44 /* BRL.png in Resources */ = {isa = PBXBuildFile; fileRef = 152984A41DD3D08D00146C44 /* BRL.png */; };
+		152984A71DD3D08D00146C44 /* EUR.png in Resources */ = {isa = PBXBuildFile; fileRef = 152984A51DD3D08D00146C44 /* EUR.png */; };
 		1576AA741DD2700F00153F88 /* CurrenciesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1576AA731DD2700F00153F88 /* CurrenciesListViewController.swift */; };
 		CBC31A8E00015C161E1AD208 /* Pods_ArmyOfOnes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01112B6A4CA98C5AA2F7693A /* Pods_ArmyOfOnes.framework */; };
 /* End PBXBuildFile section */
@@ -29,6 +33,10 @@
 		151301E41DCCE45700F5A5B7 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Currency.swift; path = Models/Currency.swift; sourceTree = "<group>"; };
 		151301E81DCCE50F00F5A5B7 /* CurrencyModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrencyModelController.swift; path = ModelControllers/CurrencyModelController.swift; sourceTree = "<group>"; };
 		151301ED1DCD362300F5A5B7 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = DataSources/DataManager.swift; sourceTree = "<group>"; };
+		152984A01DD3C5CE00146C44 /* GBP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GBP.png; path = Resources/GBP.png; sourceTree = "<group>"; };
+		152984A21DD3CE2600146C44 /* JPY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = JPY.png; path = Resources/JPY.png; sourceTree = "<group>"; };
+		152984A41DD3D08D00146C44 /* BRL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BRL.png; path = Resources/BRL.png; sourceTree = "<group>"; };
+		152984A51DD3D08D00146C44 /* EUR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EUR.png; path = Resources/EUR.png; sourceTree = "<group>"; };
 		1576AA731DD2700F00153F88 /* CurrenciesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesListViewController.swift; path = ViewControllers/CurrenciesListViewController.swift; sourceTree = "<group>"; };
 		5811D6E0728FCF65CDCAC9B6 /* Pods-ArmyOfOnes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmyOfOnes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArmyOfOnes/Pods-ArmyOfOnes.debug.xcconfig"; sourceTree = "<group>"; };
 		905C0D21C2FDC1697E608857 /* Pods-ArmyOfOnes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArmyOfOnes.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArmyOfOnes/Pods-ArmyOfOnes.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +116,10 @@
 		151301DE1DCCE0D500F5A5B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				152984A41DD3D08D00146C44 /* BRL.png */,
+				152984A51DD3D08D00146C44 /* EUR.png */,
+				152984A21DD3CE2600146C44 /* JPY.png */,
+				152984A01DD3C5CE00146C44 /* GBP.png */,
 				151301D21DCCE08100F5A5B7 /* Assets.xcassets */,
 			);
 			name = Resources;
@@ -214,9 +226,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				152984A61DD3D08D00146C44 /* BRL.png in Resources */,
 				151301DB1DCCE0AD00F5A5B7 /* Main.storyboard in Resources */,
+				152984A71DD3D08D00146C44 /* EUR.png in Resources */,
+				152984A31DD3CE2700146C44 /* JPY.png in Resources */,
 				151301D31DCCE08100F5A5B7 /* Assets.xcassets in Resources */,
 				151301DA1DCCE0AD00F5A5B7 /* LaunchScreen.storyboard in Resources */,
+				152984A11DD3C5CE00146C44 /* GBP.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,6 +34,7 @@ class CurrenciesListViewController: UITableViewController {
     let listTitle = "Army of Ones"
     
     var currencyRatesList = [String]()
+    var currencyCountries = [String]()
     var currencyFormatter = NSNumberFormatter()
     
     var rates = [Currency]()
@@ -76,13 +77,15 @@ class CurrenciesListViewController: UITableViewController {
     }
     
     func reloadRates()->Void {
-        currencyRatesList = [String]()
+        currencyRatesList.removeAll()
+        currencyCountries.removeAll()
         for rate in rates {
             let countryValue = rate.currencyCountry.rawValue
             let rateValue = rate.currencyValue * dollarQuantity
             currencyFormatter.currencyCode = countryValue
             if let currencyFormatedValue = currencyFormatter.stringFromNumber(rateValue) {
                 currencyRatesList.append("\(countryValue) \(currencyFormatedValue)")
+                currencyCountries.append("\(countryValue)")
             }
             dispatch_async(dispatch_get_main_queue()){
                 self.tableView.reloadData()
@@ -118,7 +121,9 @@ class CurrenciesListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)! as UITableViewCell
         
         cell.textLabel?.text = currencyRatesList[indexPath.row]
-        
+        let countryFlag = currencyCountries[indexPath.row]
+        let CountryImage = UIImage(named: countryFlag)
+        cell.imageView?.image = CountryImage
         return cell
     }
     
