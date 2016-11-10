@@ -19,7 +19,6 @@ class CurrenciesListViewController: UITableViewController {
     var dollarQuantity = 1.0
     
     let quantityInput: UITextField = {
-        
         let textField = UITextField()
         textField.text = String(1.0)
         textField.placeholder = "Type a valid dollar quantity"
@@ -27,6 +26,7 @@ class CurrenciesListViewController: UITableViewController {
         textField.layer.masksToBounds = true
         textField.layer.borderColor = UIColor.lightGrayColor().CGColor
         textField.layer.borderWidth = 1.0
+        textField.keyboardType = UIKeyboardType.DecimalPad
         return textField
     }()
     
@@ -46,9 +46,16 @@ class CurrenciesListViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsetsMake(LayoutConstraints.tableTopInset.rawValue, 0, 0, 0);
         tableView.scrollEnabled = false
         tableView.allowsSelection = false
+        tableView.delegate = self
+        tableView.dataSource = self
         
         title = listTitle
         tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        // Gesture that recognices tap to hide keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action:Selector("endEditing:"))
+        tapGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapGesture);
         
         setQuantityInputLayout()
         setupRates()
@@ -57,6 +64,9 @@ class CurrenciesListViewController: UITableViewController {
     }
     
     func setQuantityInputLayout()->Void {
+        
+        quantityInput.delegate = self
+        quantityInput.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
         navigationController?.view.insertSubview(quantityInput, belowSubview: navigationController!.navigationBar)
         
         //sets format number style to currency
@@ -79,6 +89,7 @@ class CurrenciesListViewController: UITableViewController {
     func reloadRates()->Void {
         currencyRatesList.removeAll()
         currencyCountries.removeAll()
+        
         for rate in rates {
             let countryValue = rate.currencyCountry.rawValue
             let rateValue = rate.currencyValue * dollarQuantity
@@ -116,7 +127,27 @@ class CurrenciesListViewController: UITableViewController {
         super.updateViewConstraints()
     }
     
-    //MARK: TableView methods
+    //MARK: quantityInput methods
+    
+    func textFieldChanged(textField: UITextField){
+        if let dollarAmount = textField.text {
+            if let convertedDollarAmount = Double(dollarAmount) {
+                print("Converted: \(convertedDollarAmount)")
+                dollarQuantity = convertedDollarAmount
+                reloadRates()
+            }
+        }
+    }
+    
+    func endEditing(recognizer: UITapGestureRecognizer) {
+        //hides keyboard after touch
+        quantityInput.resignFirstResponder()
+    }
+}
+
+ //MARK: TableView methods
+extension CurrenciesListViewController {
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)! as UITableViewCell
         
@@ -127,7 +158,30 @@ class CurrenciesListViewController: UITableViewController {
         return cell
     }
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currencyRatesList.count
+    }
+}
+
+ //MARK: Textfield methods
+extension CurrenciesListViewController: UITextFieldDelegate {
+
+    
+    func textField(textFieldToChange: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        // limit to 4 characters
+        let characterCountLimit = 15
+        
+        // We need to figure out how many characters would be in the string after the change happens
+        let startingLength = textFieldToChange.text?.characters.count ?? 0
+        let lengthToAdd = string.characters.count
+        let lengthToReplace = range.length
+        
+        let newLength = startingLength + lengthToAdd - lengthToReplace
+        
+        return newLength <= characterCountLimit
     }
 }
