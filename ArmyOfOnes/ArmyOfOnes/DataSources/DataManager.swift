@@ -23,7 +23,8 @@ struct DataManager {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
-            if data == nil {
+            
+            guard data !== nil else {
                 print("data is nil")
                 let emptyCurrencies = [Currency]()
                 callback(emptyCurrencies,nil)
