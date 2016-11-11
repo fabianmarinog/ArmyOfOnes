@@ -23,7 +23,12 @@ struct DataManager {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
-            
+            if data == nil {
+                print("data is nil")
+                let emptyCurrencies = [Currency]()
+                callback(emptyCurrencies,nil)
+                return
+            }
             let httpResponse = response as! NSHTTPURLResponse
             let statusCode = httpResponse.statusCode
             
