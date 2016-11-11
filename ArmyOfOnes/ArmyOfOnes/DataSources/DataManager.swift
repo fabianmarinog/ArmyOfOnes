@@ -12,6 +12,10 @@ enum RatesEndpoint : String {
     case ratesBaseUrl = "https://api.fixer.io/latest?base=USD&symbols=", joiner = ","
 }
 
+enum Error : ErrorType {
+    case NoConnectionError
+}
+
 struct DataManager {
     
     func fetchJsonData(suffixes:[String], callback:CurrenciesCallback)->Void{
@@ -27,9 +31,10 @@ struct DataManager {
             guard data !== nil else {
                 print("data is nil")
                 let emptyCurrencies = [Currency]()
-                callback(emptyCurrencies,nil)
+                callback(emptyCurrencies, Error.NoConnectionError)
                 return
             }
+            
             let httpResponse = response as! NSHTTPURLResponse
             let statusCode = httpResponse.statusCode
             

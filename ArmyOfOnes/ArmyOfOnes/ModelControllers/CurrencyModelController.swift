@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias CurrenciesCallback = ([Currency]?, NSError?)->Void
+typealias CurrenciesCallback = ([Currency]?, Error?)->Void
 
 protocol CurrencyControllerProtocol {
     func fetchRates(countries:[Country], callback:CurrenciesCallback)-> Void

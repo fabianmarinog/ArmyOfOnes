@@ -75,10 +75,22 @@ class CurrenciesListViewController: UITableViewController {
         currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
     }
     
+    func showNoConnectionMessage()->Void {
+        //shows an alert message when there is no internet connection
+        let alert = UIAlertController(title: "Connection error", message: "Make sure you are connected to the Internet", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func setupRates()->Void {
         
         let currencyController = CurrencyController()
-        currencyController.fetchRates(Country.allCountries) {(fetchedRates, err) -> Void in
+        currencyController.fetchRates(Country.allCountries) {(fetchedRates, error) -> Void in
+            
+            guard error == nil else {
+                self.showNoConnectionMessage()
+                return
+            }
             
             if let ratesList = fetchedRates {
                 self.rates = ratesList
