@@ -65,7 +65,7 @@ class CurrenciesListViewController: UITableViewController {
         view.setNeedsUpdateConstraints()
     }
     
-    func setQuantityInputLayout()->Void {
+    func setQuantityInputLayout() -> Void {
         
         quantityInput.delegate = self
         quantityInput.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
@@ -75,14 +75,14 @@ class CurrenciesListViewController: UITableViewController {
         currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
     }
     
-    func showNoConnectionMessage()->Void {
+    func showNoConnectionMessage() -> Void {
         //shows an alert message when there is no internet connection
         let alert = UIAlertController(title: "Connection error", message: "Make sure you are connected to the Internet", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
     
-    func setupRates()->Void {
+    func setupRates() -> Void {
         
         let currencyController = CurrencyController()
         currencyController.fetchRates(Country.allCountries) {(fetchedRates, error) -> Void in
@@ -100,7 +100,7 @@ class CurrenciesListViewController: UITableViewController {
 
     }
     
-    func reloadRates()->Void {
+    func reloadRates() -> Void {
         currencyRatesList.removeAll()
         currencyCountries.removeAll()
         
@@ -142,7 +142,7 @@ class CurrenciesListViewController: UITableViewController {
     
     //MARK: quantityInput methods
     
-    func textFieldChanged(textField: UITextField){
+    func textFieldChanged(textField: UITextField) {
         if let dollarAmount = textField.text {
             if let convertedDollarAmount = Double(dollarAmount) {
                 print("Converted: \(convertedDollarAmount)")

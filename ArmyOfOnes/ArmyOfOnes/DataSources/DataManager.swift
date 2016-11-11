@@ -18,7 +18,7 @@ enum Error : ErrorType {
 
 struct DataManager {
     
-    func fetchJsonData(suffixes:[String], callback:CurrenciesCallback)->Void{
+    func fetchJsonData(suffixes:[String], callback:CurrenciesCallback) -> Void {
         
         let ratesUrl = formatUrl(suffixes)
         
@@ -64,7 +64,7 @@ struct DataManager {
         task.resume()
     }
     
-    func formatUrl(suffixes: [String])->String{
+    func formatUrl(suffixes: [String]) -> String {
         let joiner = RatesEndpoint.joiner.rawValue
         let baseUrl = RatesEndpoint.ratesBaseUrl.rawValue
         let symbols = suffixes.joinWithSeparator(joiner)
@@ -73,4 +73,3 @@ struct DataManager {
         return ratesUrl
     }
 }
-

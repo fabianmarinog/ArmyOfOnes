@@ -8,14 +8,14 @@
 
 import Foundation
 
-typealias CurrenciesCallback = ([Currency]?, Error?)->Void
+typealias CurrenciesCallback = ([Currency]?, Error?) -> Void
 
 protocol CurrencyControllerProtocol {
-    func fetchRates(countries:[Country], callback:CurrenciesCallback)-> Void
+    func fetchRates(countries:[Country], callback:CurrenciesCallback) -> Void
 }
 
-struct CurrencyController : CurrencyControllerProtocol{
-    func fetchRates(countries:[Country], callback:CurrenciesCallback)->Void{
+struct CurrencyController : CurrencyControllerProtocol {
+    func fetchRates(countries:[Country], callback:CurrenciesCallback) -> Void{
         
         var currenciesSufixes = [String]()
         for country in Country.allCountries{
