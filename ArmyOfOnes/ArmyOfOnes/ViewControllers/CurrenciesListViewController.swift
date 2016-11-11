@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 enum LayoutConstraints: CGFloat {
-    case inputOffset = 24, topInset = 43, tableTopInset = 50
+    case inputOffset = 14, topInset = 43, tableTopInset = 70
 }
 
 class CurrenciesListViewController: UITableViewController {
@@ -26,6 +26,7 @@ class CurrenciesListViewController: UITableViewController {
         textField.layer.masksToBounds = true
         textField.layer.borderColor = UIColor.lightGrayColor().CGColor
         textField.layer.borderWidth = 1.0
+        textField.textAlignment = .Center
         textField.keyboardType = UIKeyboardType.DecimalPad
         return textField
     }()
@@ -46,6 +47,7 @@ class CurrenciesListViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsetsMake(LayoutConstraints.tableTopInset.rawValue, 0, 0, 0);
         tableView.scrollEnabled = false
         tableView.allowsSelection = false
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -112,12 +114,11 @@ class CurrenciesListViewController: UITableViewController {
             let superview = view
             let inputOffset = LayoutConstraints.inputOffset.rawValue
             let topInset = LayoutConstraints.topInset.rawValue
-            let inputTopPosition = topInset + inputOffset
             
             quantityInput.snp_makeConstraints { make in
                 make.height.equalTo(topInset)
                 make.width.equalTo(superview).multipliedBy(0.95)
-                make.top.equalTo(superview).offset(inputTopPosition)
+                make.top.equalTo(navigationController!.navigationBar.snp_bottom).offset(inputOffset)
                 make.centerX.equalTo(superview)
             }
            
