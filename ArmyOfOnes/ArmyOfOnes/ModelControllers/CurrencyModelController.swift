@@ -11,12 +11,11 @@ import Foundation
 typealias CurrenciesCallback = ([Currency]?, Error?) -> Void
 
 protocol CurrencyControllerProtocol {
-    func fetchRates(countries:[Country], callback:CurrenciesCallback) -> Void
+    func fetchRates(_ countries:[Country], callback: @escaping CurrenciesCallback) -> Void
 }
 
 struct CurrencyController : CurrencyControllerProtocol {
-    func fetchRates(countries:[Country], callback:CurrenciesCallback) -> Void{
-        
+    internal func fetchRates(_ countries: [Country], callback: @escaping ([Currency]?, Error?) -> Void) {
         var currenciesSufixes = [String]()
         for country in Country.allCountries{
             currenciesSufixes.append(country.rawValue)

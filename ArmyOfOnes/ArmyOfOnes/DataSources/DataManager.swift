@@ -9,39 +9,41 @@
 import Foundation
 
 enum RatesEndpoint : String {
-    case ratesBaseUrl = "https://api.fixer.io/latest?base=USD&symbols=", joiner = ","
+    case ratesBaseUrl = "https://api.fixer.io/latest?base=USD&symbols=", joiner = ",", requestMethod = "GET"
 }
 
-enum Error : ErrorType {
-    case NoConnectionError
+enum Error : Swift.Error {
+    case noConnectionError
 }
 
 struct DataManager {
     
-    func fetchJsonData(suffixes:[String], callback:CurrenciesCallback) -> Void {
+    func fetchJsonData(_ suffixes:[String], callback:@escaping CurrenciesCallback) -> Void {
         
         let ratesUrl = formatUrl(suffixes)
         
-        let requestURL: NSURL = NSURL(string: ratesUrl)!
-        let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(urlRequest) {
-            (data, response, error) -> Void in
+        let session = URLSession.shared
+        
+        var request = URLRequest(url: URL(string: ratesUrl)!)
+        request.httpMethod = RatesEndpoint.requestMethod.rawValue
+        
+        session.dataTask(with: request) { data, response, err in
+            print("Entered the completionHandler")
             
-            guard data !== nil else {
+            guard data != nil else {
                 print("data is nil")
                 let emptyCurrencies = [Currency]()
-                callback(emptyCurrencies, Error.NoConnectionError)
+                callback(emptyCurrencies, Error.noConnectionError)
                 return
             }
             
-            let httpResponse = response as! NSHTTPURLResponse
+            let httpResponse = response as! HTTPURLResponse
             let statusCode = httpResponse.statusCode
             
             if (statusCode == 200) {
                 do{
                     
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
+                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as! [String:AnyObject]
                     
                     if let rates = json["rates"] as? [String:Double] {
                         
@@ -59,15 +61,15 @@ struct DataManager {
                     print("Error with Rates Json: \(error)")
                 }
             }
-        }
-        
-        task.resume()
+
+            
+            }.resume()
     }
     
-    func formatUrl(suffixes: [String]) -> String {
+    func formatUrl(_ suffixes: [String]) -> String {
         let joiner = RatesEndpoint.joiner.rawValue
         let baseUrl = RatesEndpoint.ratesBaseUrl.rawValue
-        let symbols = suffixes.joinWithSeparator(joiner)
+        let symbols = suffixes.joined(separator: joiner)
         let ratesUrl = "\(baseUrl)\(symbols)"
         
         return ratesUrl
