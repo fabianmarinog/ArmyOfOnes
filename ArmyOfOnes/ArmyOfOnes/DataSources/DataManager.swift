@@ -9,7 +9,9 @@
 import Foundation
 
 enum RatesEndpoint : String {
-    case ratesBaseUrl = "https://api.fixer.io/latest?base=USD&symbols=", joiner = ",", requestMethod = "GET"
+    case ratesBaseUrl = "https://api.fixer.io/latest?base=USD&symbols=",
+    joiner = ",",
+    requestMethod = "GET"
 }
 
 enum Error : Swift.Error {
