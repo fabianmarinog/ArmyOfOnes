@@ -15,7 +15,10 @@ enum RatesEndpoint : String {
 }
 
 enum Error : Swift.Error {
-    case noConnectionError
+    case noConnection,
+    noStatusCode,
+    wrongStatusCode,
+    failedJsonParsing
 }
 
 struct DataManager {
@@ -26,44 +29,61 @@ struct DataManager {
         
         let session = URLSession.shared
         
-        var request = URLRequest(url: URL(string: ratesUrl)!)
+        guard let convertedUrl = URL(string: ratesUrl) else {
+            print("no converted URL from string")
+            return
+        }
+        
+        var request = URLRequest(url: convertedUrl)
         request.httpMethod = RatesEndpoint.requestMethod.rawValue
+        
+        let emptyCurrencies = [Currency]() //sends empty data when error occurs
         
         session.dataTask(with: request) { data, response, err in
             print("Entered the completionHandler")
             
-            guard data != nil else {
-                print("data is nil")
-                let emptyCurrencies = [Currency]()
-                callback(emptyCurrencies, Error.noConnectionError)
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                // Error handling
+                print("no status Code")
+                callback(emptyCurrencies, Error.noStatusCode)
                 return
             }
             
-            let httpResponse = response as! HTTPURLResponse
-            let statusCode = httpResponse.statusCode
-            
-            if (statusCode == 200) {
-                do{
-                    
-                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as! [String:AnyObject]
-                    
-                    if let rates = json["rates"] as? [String:Double] {
-                        
-                        var currencies = [Currency]()
-                        for (country, rate) in rates {
-                            if let countryReference = Country(rawValue: country) {
-                                let currency = Currency(currencyCountry: countryReference, currencyValue: rate)
-                                currencies.append(currency)
-                            }
-                        }
-                        callback(currencies,nil)
-                    }
-                    
-                } catch {
-                    print("Error with Rates Json: \(error)")
-                }
+            guard statusCode == 200 else {
+                // status code is different
+                print("status code is not 200")
+                callback(emptyCurrencies, Error.wrongStatusCode)
+                return
             }
-
+            
+            guard let data = data else {
+                // No data handling
+                print("data is nil")
+                callback(emptyCurrencies, Error.noConnection)
+                return
+            }
+            
+            do {
+                
+                let json = try JSONSerialization.jsonObject(with: data, options:.allowFragments) as! [String:AnyObject]
+                
+                if let rates = json["rates"] as? [String:Double] {
+                    
+                    var currencies = [Currency]()
+                    for (country, rate) in rates {
+                        if let countryReference = Country(rawValue: country) {
+                            let currency = Currency(currencyCountry: countryReference, currencyValue: rate)
+                            currencies.append(currency)
+                        }
+                    }
+                    callback(currencies,nil)
+                }
+                
+            } catch {
+                print("Error with Rates Json: \(error)")
+                callback(emptyCurrencies, Error.failedJsonParsing)
+            }
+            
             
             }.resume()
     }
