@@ -11,8 +11,8 @@
 import Foundation
 
 struct Currency {
-    let currencyCountry: Country
-    let currencyValue: Double
+    let country: Country
+    let value: Double
 }
 
 enum Country : String {

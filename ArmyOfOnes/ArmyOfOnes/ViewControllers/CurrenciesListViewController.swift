@@ -10,7 +10,13 @@ import UIKit
 import SnapKit
 
 enum LayoutConstraints: CGFloat {
-    case inputOffset = 14, topInset = 43, tableTopInset = 70
+    case inputOffset = 14,
+    topInset = 43,
+    tableTopInset = 70
+}
+
+enum textFieldLimit: Int {
+    case max = 15
 }
 
 class CurrenciesListViewController: UITableViewController {
@@ -87,15 +93,22 @@ class CurrenciesListViewController: UITableViewController {
         let currencyController = CurrencyController()
         currencyController.fetchRates(Country.allCountries) {(fetchedRates, error) -> Void in
             
-            guard error == nil else {
-                self.showNoConnectionMessage()
+            
+            guard let _ = error else  {
+                
+                guard let ratesList = fetchedRates else {
+                    print("rates list is not defined")
+                    return
+                }
+                
+                self.rates = ratesList
+                self.reloadRates()
+                
                 return
             }
             
-            if let ratesList = fetchedRates {
-                self.rates = ratesList
-                self.reloadRates()
-            }
+            self.showNoConnectionMessage()
+            
         }
 
     }
@@ -105,8 +118,8 @@ class CurrenciesListViewController: UITableViewController {
         currencyCountries.removeAll()
         
         for rate in rates {
-            let countryValue = rate.currencyCountry.rawValue
-            let rateValue = rate.currencyValue * dollarQuantity
+            let countryValue = rate.country.rawValue
+            let rateValue = rate.value * dollarQuantity
             currencyFormatter.currencyCode = countryValue
             let convertedRateValue = NSNumber(value: rateValue)
 
@@ -190,8 +203,6 @@ extension CurrenciesListViewController: UITextFieldDelegate {
 
     
     func textField(_ textFieldToChange: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // limit to 4 characters
-        let characterCountLimit = 15
         
         // We need to figure out how many characters would be in the string after the change happens
         let startingLength = textFieldToChange.text?.characters.count ?? 0
@@ -200,6 +211,6 @@ extension CurrenciesListViewController: UITextFieldDelegate {
         
         let newLength = startingLength + lengthToAdd - lengthToReplace
         
-        return newLength <= characterCountLimit
+        return newLength <= textFieldLimit.max.rawValue
     }
 }

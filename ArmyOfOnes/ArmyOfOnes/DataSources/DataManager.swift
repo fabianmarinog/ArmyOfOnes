@@ -72,7 +72,7 @@ struct DataManager {
                     var currencies = [Currency]()
                     for (country, rate) in rates {
                         if let countryReference = Country(rawValue: country) {
-                            let currency = Currency(currencyCountry: countryReference, currencyValue: rate)
+                            let currency = Currency(country: countryReference, value: rate)
                             currencies.append(currency)
                         }
                     }
