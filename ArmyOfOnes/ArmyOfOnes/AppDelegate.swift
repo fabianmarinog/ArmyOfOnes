@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        let listViewController:CurrenciesListViewController = CurrenciesListViewController()
-        let navigationController:UINavigationController = UINavigationController(rootViewController: listViewController);
+        let listViewController = CurrenciesListViewController()
+        let navigationController = UINavigationController(rootViewController: listViewController);
         
         self.window!.rootViewController = navigationController;
         
