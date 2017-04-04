@@ -9,9 +9,12 @@
 import Foundation
 
 enum RatesEndpoint : String {
-    case ratesBaseUrl = "https://api.fixer.io/latest?base=USD&symbols=",
+    case ratesBaseUrl = "https://api.fixer.io/latest",
     joiner = ",",
-    requestMethod = "GET"
+    requestMethod = "GET",
+    baseParam = "base",
+    baseValue = "USD",
+    symbolsParam = "symbols"
 }
 
 enum Error : Swift.Error {
@@ -26,6 +29,8 @@ struct DataManager {
     func fetchJsonData(_ suffixes:[String], callback:@escaping CurrenciesCallback) -> Void {
         
         let ratesUrl = formatUrl(suffixes)
+        
+        print(ratesUrl)
         
         let session = URLSession.shared
         
@@ -89,11 +94,20 @@ struct DataManager {
     }
     
     func formatUrl(_ suffixes: [String]) -> String {
-        let joiner = RatesEndpoint.joiner.rawValue
-        let baseUrl = RatesEndpoint.ratesBaseUrl.rawValue
-        let symbols = suffixes.joined(separator: joiner)
-        let ratesUrl = "\(baseUrl)\(symbols)"
         
-        return ratesUrl
+        guard var baseUrl = URLComponents(string: RatesEndpoint.ratesBaseUrl.rawValue) else {
+            print("invalid url")
+            return RatesEndpoint.ratesBaseUrl.rawValue
+        }
+        
+        let symbols = suffixes.joined(separator: RatesEndpoint.joiner.rawValue)
+        
+        baseUrl.queryItems = [
+            URLQueryItem(name: RatesEndpoint.baseParam.rawValue, value: RatesEndpoint.baseValue.rawValue),
+            URLQueryItem(name: RatesEndpoint.symbolsParam.rawValue, value: symbols)
+        ];
+        
+        
+        return baseUrl.string!
     }
 }
