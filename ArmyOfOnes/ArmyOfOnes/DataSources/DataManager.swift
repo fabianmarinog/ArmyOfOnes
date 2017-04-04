@@ -94,10 +94,11 @@ struct DataManager {
     }
     
     func formatUrl(_ suffixes: [String]) -> String {
+        let defaultUrl = RatesEndpoint.ratesBaseUrl.rawValue
         
         guard var baseUrl = URLComponents(string: RatesEndpoint.ratesBaseUrl.rawValue) else {
-            print("invalid url")
-            return RatesEndpoint.ratesBaseUrl.rawValue
+            print("baseUrl not valid")
+            return defaultUrl
         }
         
         let symbols = suffixes.joined(separator: RatesEndpoint.joiner.rawValue)
@@ -107,7 +108,11 @@ struct DataManager {
             URLQueryItem(name: RatesEndpoint.symbolsParam.rawValue, value: symbols)
         ];
         
+        guard let formatedUrl = baseUrl.string else {
+            print("formatedUrl not valid")
+            return defaultUrl
+        }
         
-        return baseUrl.string!
+        return formatedUrl
     }
 }
