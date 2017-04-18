@@ -17,7 +17,7 @@ enum RatesEndpoint : String {
     symbolsParam = "symbols"
 }
 
-enum Error : Swift.Error {
+enum RequestError : Error {
     case noConnection,
     noStatusCode,
     wrongStatusCode,
@@ -50,21 +50,21 @@ struct DataManager {
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
                 // Error handling
                 print("no status Code")
-                callback(emptyCurrencies, Error.noStatusCode)
+                callback(emptyCurrencies, RequestError.noStatusCode)
                 return
             }
             
             guard statusCode == 200 else {
                 // status code is different
                 print("status code is not 200")
-                callback(emptyCurrencies, Error.wrongStatusCode)
+                callback(emptyCurrencies, RequestError.wrongStatusCode)
                 return
             }
             
             guard let data = data else {
                 // No data handling
                 print("data is nil")
-                callback(emptyCurrencies, Error.noConnection)
+                callback(emptyCurrencies, RequestError.noConnection)
                 return
             }
             
@@ -86,7 +86,7 @@ struct DataManager {
                 
             } catch {
                 print("Error with Rates Json: \(error)")
-                callback(emptyCurrencies, Error.failedJsonParsing)
+                callback(emptyCurrencies, RequestError.failedJsonParsing)
             }
             
             

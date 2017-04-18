@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let listViewController = CurrenciesListViewController()
         let navigationController = UINavigationController(rootViewController: listViewController);
         
-        self.window!.rootViewController = navigationController;
+        navigationController.view.backgroundColor = UIColor.white
         
-        self.window!.backgroundColor = UIColor.white
-        self.window!.makeKeyAndVisible()
+        self.window?.rootViewController = navigationController;
+        self.window?.makeKeyAndVisible()
         
         return true
     }
