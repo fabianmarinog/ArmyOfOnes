@@ -83,9 +83,8 @@ struct DataManager {
             }
             
             callback(currencies,nil)
-
            
-            }.resume()
+        }.resume()
     }
     
     func formatUrl(_ suffixes: [String]) -> String {

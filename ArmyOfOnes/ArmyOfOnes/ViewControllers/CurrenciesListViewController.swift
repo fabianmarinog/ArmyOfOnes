@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 
-enum LayoutConstraints: CGFloat {
-    case inputOffset = 14,
-    topInset = 43,
-    tableTopInset = 70
+enum CurrenciesListViewControllerConfig {
+    static let inputOffset    = CGFloat(14)
+    static let topInset       = CGFloat(43)
+    static let tableTopInset  = CGFloat(70)
 }
 
 enum textFieldLimit: Int {
@@ -37,7 +37,7 @@ class CurrenciesListViewController: UITableViewController {
         return textField
     }()
     
-    let cellIdentifier = "CellIdentifier"
+    let cellIdentifier = "ConvertedCurrencyIdentifier"
     let listTitle = "Army of Ones"
     
     var currencyRatesList = [String]()
@@ -50,7 +50,7 @@ class CurrenciesListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.contentInset = UIEdgeInsetsMake(LayoutConstraints.tableTopInset.rawValue, 0, 0, 0);
+        tableView.contentInset = UIEdgeInsetsMake(CurrenciesListViewControllerConfig.tableTopInset, 0, 0, 0);
         tableView.isScrollEnabled = false
         tableView.allowsSelection = false
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
@@ -140,8 +140,8 @@ class CurrenciesListViewController: UITableViewController {
             
             if let superview = view {
                 
-                let inputOffset = LayoutConstraints.inputOffset.rawValue
-                let topInset = LayoutConstraints.topInset.rawValue
+                let inputOffset = CurrenciesListViewControllerConfig.inputOffset
+                let topInset = CurrenciesListViewControllerConfig.topInset
                 
                 quantityInput.snp.makeConstraints { make in
                     make.height.equalTo(topInset)
@@ -160,11 +160,10 @@ class CurrenciesListViewController: UITableViewController {
     //MARK: quantityInput methods
     
     func textFieldChanged(_ textField: UITextField) {
-        if let dollarAmount = textField.text {
-            if let convertedDollarAmount = Double(dollarAmount) {
-                dollarQuantity = convertedDollarAmount
-                reloadRates()
-            }
+        if let dollarAmount = textField.text,
+           let convertedDollarAmount = Double(dollarAmount) {
+              dollarQuantity = convertedDollarAmount
+              reloadRates()
         }
     }
     
@@ -185,10 +184,6 @@ extension CurrenciesListViewController {
         let CountryImage = UIImage(named: countryFlag)
         cell.imageView?.image = CountryImage
         return cell
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
