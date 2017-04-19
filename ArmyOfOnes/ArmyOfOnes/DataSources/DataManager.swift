@@ -21,7 +21,8 @@ enum RequestError : Error {
     case noConnection,
     noStatusCode,
     wrongStatusCode,
-    failedJsonParsing
+    failedJsonParsing,
+    failedURLParsing
 }
 
 struct DataManager {
@@ -30,15 +31,16 @@ struct DataManager {
         
         let ratesUrl = formatUrl(suffixes)
         let session = URLSession.shared
+        let emptyCurrencies = [Currency]() //sends empty data when error occurs
         
         guard let convertedUrl = URL(string: ratesUrl) else {
+            callback(emptyCurrencies, RequestError.failedURLParsing)
             return
         }
         
         var request = URLRequest(url: convertedUrl)
         request.httpMethod = RatesEndpoint.requestMethod.rawValue
         
-        let emptyCurrencies = [Currency]() //sends empty data when error occurs
         
         session.dataTask(with: request) { data, response, err in
             
@@ -60,27 +62,29 @@ struct DataManager {
                 return
             }
             
-            do {
-                
-                let json = try JSONSerialization.jsonObject(with: data, options:.allowFragments) as! [String:AnyObject]
-                
-                if let rates = json["rates"] as? [String:Double] {
-                    
-                    var currencies = [Currency]()
-                    for (country, rate) in rates {
-                        if let countryReference = Country(rawValue: country) {
-                            let currency = Currency(country: countryReference, value: rate)
-                            currencies.append(currency)
-                        }
-                    }
-                    callback(currencies,nil)
-                }
-                
-            } catch {
+            guard let json = try? JSONSerialization.jsonObject(with: data, options:.allowFragments) as? [String:AnyObject] else {
+                //json not well formated
                 callback(emptyCurrencies, RequestError.failedJsonParsing)
+                return
             }
             
+            guard let rates = json?["rates"] as? [String:Double] else {
+                //rates not in formated JSON
+                callback(emptyCurrencies, RequestError.failedJsonParsing)
+                return
+            }
             
+            var currencies = [Currency]()
+            for (country, rate) in rates {
+                if let countryReference = Country(rawValue: country) {
+                    let currency = Currency(country: countryReference, value: rate)
+                    currencies.append(currency)
+                }
+            }
+            
+            callback(currencies,nil)
+
+           
             }.resume()
     }
     
