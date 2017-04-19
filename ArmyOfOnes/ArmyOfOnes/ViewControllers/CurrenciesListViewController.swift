@@ -97,7 +97,6 @@ class CurrenciesListViewController: UITableViewController {
             guard let _ = error else  {
                 
                 guard let ratesList = fetchedRates else {
-                    print("rates list is not defined")
                     return
                 }
                 
@@ -163,7 +162,6 @@ class CurrenciesListViewController: UITableViewController {
     func textFieldChanged(_ textField: UITextField) {
         if let dollarAmount = textField.text {
             if let convertedDollarAmount = Double(dollarAmount) {
-                print("Converted: \(convertedDollarAmount)")
                 dollarQuantity = convertedDollarAmount
                 reloadRates()
             }

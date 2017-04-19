@@ -29,13 +29,9 @@ struct DataManager {
     func fetchJsonData(_ suffixes:[String], callback:@escaping CurrenciesCallback) -> Void {
         
         let ratesUrl = formatUrl(suffixes)
-        
-        print(ratesUrl)
-        
         let session = URLSession.shared
         
         guard let convertedUrl = URL(string: ratesUrl) else {
-            print("no converted URL from string")
             return
         }
         
@@ -45,25 +41,21 @@ struct DataManager {
         let emptyCurrencies = [Currency]() //sends empty data when error occurs
         
         session.dataTask(with: request) { data, response, err in
-            print("Entered the completionHandler")
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
                 // Error handling
-                print("no status Code")
                 callback(emptyCurrencies, RequestError.noStatusCode)
                 return
             }
             
             guard statusCode == 200 else {
                 // status code is different
-                print("status code is not 200")
                 callback(emptyCurrencies, RequestError.wrongStatusCode)
                 return
             }
             
             guard let data = data else {
                 // No data handling
-                print("data is nil")
                 callback(emptyCurrencies, RequestError.noConnection)
                 return
             }
@@ -85,7 +77,6 @@ struct DataManager {
                 }
                 
             } catch {
-                print("Error with Rates Json: \(error)")
                 callback(emptyCurrencies, RequestError.failedJsonParsing)
             }
             
@@ -97,7 +88,6 @@ struct DataManager {
         let defaultUrl = RatesEndpoint.ratesBaseUrl.rawValue
         
         guard var baseUrl = URLComponents(string: RatesEndpoint.ratesBaseUrl.rawValue) else {
-            print("baseUrl not valid")
             return defaultUrl
         }
         
@@ -109,7 +99,6 @@ struct DataManager {
         ];
         
         guard let formatedUrl = baseUrl.string else {
-            print("formatedUrl not valid")
             return defaultUrl
         }
         
